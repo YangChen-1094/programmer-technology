@@ -33,7 +33,7 @@ Direct交换器需要消息的Routing Key与 Exchange和Queue 之间的Binding K
 #### 2.2.3、Topic（通配符模式）
 **Topic交换器按照正则表达式模糊匹配**：
 
-用消息的Routing Key与 Exchange和Queue 之间的Binding Key进行模糊匹配，如果匹配成功，将消息分发到该Queue。
+&nbsp;&nbsp;&nbsp;&nbsp;用消息的Routing Key与 Exchange和Queue 之间的Binding Key进行模糊匹配，如果匹配成功，将消息分发到该Queue。
 Binding Key与Routing Key一样是以句点号“. ”分隔单词。Binding Key中可以存在两种特殊字符“ * ”与“#”，用于做模糊匹配，
 其中“*”用于匹配一个单词，“#”用于匹配多个单词（也可以是零个或一个）。如：上图消息队列1消费的是shenzhen开头的所有消息，
 而消息队列2消费所有cars结尾的消息
