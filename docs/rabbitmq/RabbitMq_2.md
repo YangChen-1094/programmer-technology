@@ -108,7 +108,7 @@ channel.txCommit
 
 #### 2.3.6、重复消费
 ###### 原因：
-* 场景因消息重发机制会出现消息重复消费的情况
+* 因消息重发机制或业务问题导致生产者多发消息，会出现消息重复消费的情况
 ###### 解决方案：
 * 幂等操作，同一个操作执行N次，结果不变。
 * 若实际业务中用不了幂等，则保存消息id到数据库（Redis）中，每次消费前查看消息是否已经被消费过。
@@ -126,7 +126,7 @@ channel.txCommit
     concurrentConsumers：对每个listener在初始化的时候设置的并发消费者的个数。<br/>
     prefetchCount：每次一次性从broker里面取的待消费的消息的个数，prefetchCount是BlockingQueueConsumer内部维护的一个阻塞队列 LinkedBlockingQueue 的大小，其作用就是如果某个消费者队列阻塞，就无法接收新的消息，该消息会发送到其它未阻塞的消费者。
 
-#### 2.6.5、如何保证消息的顺序消费
+#### 2.3.8、如何保证消息的顺序消费
 ###### 场景：
 * 在work queue模式下，只有一个队列，但存在多个消费者。多个消费者线程的竞争会导致数据乱序。
 * 在简单队列模式下，同样的多个消费者线程也会导致数据乱序。
@@ -138,7 +138,7 @@ channel.txCommit
 2、不需要保证顺序的队列：可以多个消费者
 ```
 
-#### 2.6.7、prefetch与消息投递
+#### 2.3.9、prefetch与消息投递
 * prefetch允许为每个consumer指定最大的unacked messages数目。<br>
 　　简单来说就是用来指定一个consumer一次可以从Rabbit中获取多少条message并缓存在client中。一旦缓冲区满了，Rabbit将会停止投递新的message到该consumer中直到它发出ack。<br/>
 　　假设prefetch值设为10，共有两个consumer。意味着每个consumer每次会从queue中预抓取 10 条消息到本地缓存着等待消费。
@@ -147,8 +147,8 @@ channel.txCommit
 之后其中consumer对一条消息进行ack，unacked此时等于19，Rabbit就判断哪个consumer的unacked少于10，就投递到哪个consumer中。
 * 总的来说，consumer负责不断处理消息，不断ack，然后只要unacked数少于prefetch * consumer数目，broker就不断将消息投递过去。
 
-### 2.7、RabbitMQ的高级应用
-#### 2.7.1、死信队列
+### 2.4、RabbitMQ的高级应用
+#### 2.4.1、死信队列
 死信队列（DLX，Dead-Letter-Exchange），利用DLX，当消息在一个队列中变成无法被消费的消息（dead message）之后，它能被重新publish到另一个Exchange，这个Exchange就是DLX（普通的交换机，只是设置了某个队列的属性）。消息变成死信的几种情况：
 * 消息被拒绝（channel.basicReject/channel.basicNack）并且request=false；
 * 消息在队列的存活时间超过设置的生存时间（TTL）时间；
@@ -160,7 +160,7 @@ channel.txCommit
 * 首先，需要设置死信队列的Exchange和queue，然后进行绑定；
 * 然后，进行正常声明交换机、队列、绑定，只不过需要在队列机上一个参数即可：`arguments.put("x-dead-letter-exchange","dlx.exchange")；`这样消息在过期、被拒绝、队列在达到最大长度时，消息就可以直接路由到死信队列。
 
-#### 2.7.2、延迟队列
+#### 2.4.2、延迟队列
 创建交换机时指定type为x-delayed-message，argumens参数设置“x-delayed-type:direct”，表示创建延时队列的交换机。它是一种新的交换类型，该类型消息支持延迟投递机制消息传递后并不会立即投递到目标队列中，而是存储在mnesia（一个分布式数据系统）表中，当达到投递时间时，才投递到目标队列中。
 ![img.png](../../images/rabbitmq/2_delay_queue.png)
 ###### 应用场景：
