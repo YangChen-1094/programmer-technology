@@ -1,5 +1,5 @@
-##2、RabbitMq重点详解
-###2.1、RabbitMQ里的几个重要概念：
+## 2、RabbitMq重点详解
+### 2.1、RabbitMQ里的几个重要概念：
 * 生产者（Producer）：发送消息的应用。
 * 消费者（Consumer）：接收消息的应用。
 * 队列（Queue）：存储消息的缓存。
