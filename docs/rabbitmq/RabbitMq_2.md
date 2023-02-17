@@ -141,8 +141,7 @@ channel.txCommit
 
 #### 2.6.7、prefetch与消息投递
 * prefetch允许为每个consumer指定最大的unacked messages数目。<br>
-　　简单来说就是用来指定一个consumer一次可以从Rabbit中获取多少条message
-并缓存在client中(RabbitMQ提供的各种语言的client library)。一旦缓冲区满了，Rabbit将会停止投递新的message到该consumer中直到它发出ack。<br/>
+　　简单来说就是用来指定一个consumer一次可以从Rabbit中获取多少条message并缓存在client中。一旦缓冲区满了，Rabbit将会停止投递新的message到该consumer中直到它发出ack。<br/>
 　　假设prefetch值设为10，共有两个consumer。意味着每个consumer每次会从queue中预抓取 10 条消息到本地缓存着等待消费。
 同时该channel的unacked数变为20。而Rabbit投递的顺序是，先为consumer1投递满10个message，再往consumer2投递10个message。
 如果这时有新message需要投递，先判断channel的unacked数是否等于20，如果是则不会将消息投递到consumer中，message继续呆在queue中。
