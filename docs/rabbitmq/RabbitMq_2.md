@@ -11,11 +11,11 @@
 * 路由键（Routing Key）：路由键是供交换机查看并根据键来决定如何分发消息到列队的一个键。路由键可以说是消息的目的地址。
 
 ![架构模型](../../images/rabbitmq/2_jiagou.png)
-生产者先把消息发送给交换器，再由交换器路由到对应的消息队列，然后消费者消费队列的消息
+　　生产者先把消息发送给交换器，再由交换器路由到对应的消息队列，然后消费者消费队列的消息
 
 ### 2.2、交换机类型：
 #### 2.2.1、Fanout（订阅模式|广播模式）       
-Fanout交换器会把所有发送到该交换器的消息路由到所有与该交换器绑定的消息队列中。类似于子网广播，子网内的每台主机都获得了一份复制的消息。Fanout交换机转发消息是最快的。
+　　Fanout交换器会把所有发送到该交换器的消息路由到所有与该交换器绑定的消息队列中。类似于子网广播，子网内的每台主机都获得了一份复制的消息。Fanout交换机转发消息是最快的。
 * 可以理解为路由表的模式
 * 这种模式不需要RouteKey
 * 这种模式需要提前将Exchange与Queue进行绑定，一个Exchange可以绑定多个Queue，一个Queue可以同多个Exchange进行绑定。
@@ -23,7 +23,7 @@ Fanout交换器会把所有发送到该交换器的消息路由到所有与该�
 ![img.png](../../images/rabbitmq/2_fanout.png)
 
 #### 2.2.2、Direct（路由模式）        
-Direct交换器需要消息的Routing Key与 Exchange和Queue 之间的Binding Key完全匹配，如果匹配成功，将消息分发到该Queue，只有当Routing Key和Binding Key完全匹配的时候，消息队列才可以获取消息。
+　　Direct交换器需要消息的Routing Key与 Exchange和Queue 之间的Binding Key完全匹配，如果匹配成功，将消息分发到该Queue，只有当Routing Key和Binding Key完全匹配的时候，消息队列才可以获取消息。
 * 一般情况可以使用rabbitMQ自带的Exchange：”"(该Exchange的名字为空字符串，下文称其为default Exchange)。
 * 这种模式下不需要将Exchange进行任何绑定(binding)操作
 * 消息传递时需要一个“RouteKey”，可以简单的理解为要发送到的队列名字。
@@ -33,7 +33,7 @@ Direct交换器需要消息的Routing Key与 Exchange和Queue 之间的Binding K
 #### 2.2.3、Topic（通配符模式）
 **Topic交换器按照正则表达式模糊匹配**：
 
-　　　　用消息的Routing Key与 Exchange和Queue 之间的Binding Key进行模糊匹配，如果匹配成功，将消息分发到该Queue。
+　　用消息的Routing Key与 Exchange和Queue 之间的Binding Key进行模糊匹配，如果匹配成功，将消息分发到该Queue。
 Binding Key与Routing Key一样是以句点号“. ”分隔单词。Binding Key中可以存在两种特殊字符“ * ”与“#”，用于做模糊匹配，
 其中“*”用于匹配一个单词，“#”用于匹配多个单词（也可以是零个或一个）。如：上图消息队列1消费的是shenzhen开头的所有消息，
 而消息队列2消费所有cars结尾的消息
@@ -41,11 +41,11 @@ Binding Key与Routing Key一样是以句点号“. ”分隔单词。Binding Key
 
 ### 2.3、rabbitmq消息机制
 #### 2.3.1、消息确认机制：        
-在实际应用中，可能会发生消费者收到Queue中的消息，但没有处理完成就宕机（或出现其他意外）的情况，这种情况下就可能会导致消息丢失。
+　　在实际应用中，可能会发生消费者收到Queue中的消息，但没有处理完成就宕机（或出现其他意外）的情况，这种情况下就可能会导致消息丢失。
 为了避免这种情况发生，我们可以要求消费者在消费完消息后发送一个回执给RabbitMQ，RabbitMQ收到消息回执（Message acknowledgment）
 后才将该消息从Queue中移除；如果RabbitMQ没有收到回执并检测到消费者的                  
 
-RabbitMQ连接断开，则RabbitMQ会将该消息发送给其他消费者（如果存在多个消费者）进行处理。这里不存在Timeout概念，
+　　RabbitMQ连接断开，则RabbitMQ会将该消息发送给其他消费者（如果存在多个消费者）进行处理。这里不存在Timeout概念，
 一个消费者处理消息时间再长也不会导致该消息被发送给其他消费者，除非它的RabbitMQ连接断开。这里会产生另外一个问题，
 如果我们的开发人员在处理完业务逻辑后，忘记发送回执给RabbitMQ，这将会导致严重的问题，Queue中堆积的消息会越来越多，
 消费者重启后会重复消费这些消息并重复执行业务逻辑。如果我们采用no-ack的方式进行确认，也就是说，每次Consumer接到数据后，
