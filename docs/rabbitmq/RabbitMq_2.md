@@ -110,10 +110,10 @@ RabbitMQ连接断开，则RabbitMQ会将该消息发送给其他消费者（如�
 // 开启事务
 channel.txSelect
 try {
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// 这里发送消息
+    // 这里发送消息
 } catch (Exception e) {
-channel.txRollback;//回滚事务
-// 这里再次重发这条消息
+    channel.txRollback;//回滚事务
+    // 这里再次重发这条消息
 }
 // 提交事务
 channel.txCommit
