@@ -1,1 +1,6 @@
 .gitignore
+
+.idea/
+
+.claude/
+CLAUDE.md
