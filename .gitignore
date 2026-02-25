@@ -4,3 +4,5 @@
 
 .claude/
 CLAUDE.md
+
+parse_docx.py
