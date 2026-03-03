@@ -146,6 +146,5 @@ programmer-technology/
 │   ├── middleware/         # 中间件文档（Kafka/RabbitMQ/Pulsar）
 │   ├── K8S/                # Kubernetes 文档（10篇）
 │   └── rabbitmq/           # RabbitMQ 独立目录
-├── images/                 # 文档配图
 └── README.md               # 本文件
 ```
