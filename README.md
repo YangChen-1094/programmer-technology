@@ -147,8 +147,5 @@ programmer-technology/
 │   ├── K8S/                # Kubernetes 文档（10篇）
 │   └── rabbitmq/           # RabbitMQ 独立目录
 ├── images/                 # 文档配图
-├── .claude/                # Claude Code 技能配置
-│   └── skills/             # CRUD生成器、测试生成器、代码审查
-├── CLAUDE.md               # Claude Code 项目指南
 └── README.md               # 本文件
 ```
