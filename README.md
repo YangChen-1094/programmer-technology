@@ -102,22 +102,22 @@
 ## Kubernetes
 
 ### 基础架构与组件
-- [K8S各个组件](docs/K8S/1、K8S各个组件.md) - ApiServer、Scheduler、ControllerManager、Etcd、kube-proxy、kubelet、Pod
-- [controllerManager控制器管理者](docs/K8S/2、controllerManager控制器管理者.md)
-- [kube-proxy组件](docs/K8S/5、kube-proxy组件.md)
+- [K8S各个组件](docs/docs/K8S/1、K8S各个组件.md) - ApiServer、Scheduler、ControllerManager、Etcd、kube-proxy、kubelet、Pod
+- [controllerManager控制器管理者](docs/docs/K8S/2、controllerManager控制器管理者.md)
+- [kube-proxy组件](docs/docs/K8S/5、kube-proxy组件.md)
 
 ### 工作负载管理
-- [Pod控制器](docs/K8S/3、Pod控制器.md) - ReplicaSet、Deployment、HPA、DaemonSet、Job、Cronjob、StatefulSet
-- [deployment、service和endpoint](docs/K8S/4、deployment、service和endpoint.md) - Service类型、负载均衡、服务发现
-- [StatefulSets状态服务](docs/K8S/9、StatefulSets状态服务.md) - 有状态应用管理
-- [Pod健康监测机制](docs/K8S/10、pod的健康监测机制.md) - livenessProbe、ReadinessProbe、startupProbe
+- [Pod控制器](docs/docs/K8S/3、Pod控制器.md) - ReplicaSet、Deployment、HPA、DaemonSet、Job、Cronjob、StatefulSet
+- [deployment、service和endpoint](docs/docs/K8S/4、deployment、service和endpoint.md) - Service类型、负载均衡、服务发现
+- [StatefulSets状态服务](docs/docs/K8S/9、StatefulSets状态服务.md) - 有状态应用管理
+- [Pod健康监测机制](docs/docs/K8S/10、pod的健康监测机制.md) - livenessProbe、ReadinessProbe、startupProbe
 
 ### 服务与网络
-- [K8S服务注册与发现](docs/K8S/7、K8S 服务注册与发现.md)
+- [K8S服务注册与发现](docs/docs/K8S/7、K8S 服务注册与发现.md)
 
 ### 实践与工具
-- [K8S相关命令操作](docs/K8S/8、K8S相关命令操作.md) - kubectl常用命令
-- [Chaos Mesh混沌测试工具](docs/K8S/6、chaos mesh混沌测试工具.md) - 故障注入、混沌工程
+- [K8S相关命令操作](docs/docs/K8S/8、K8S相关命令操作.md) - kubectl常用命令
+- [Chaos Mesh混沌测试工具](docs/docs/K8S/6、chaos mesh混沌测试工具.md) - 故障注入、混沌工程
 
 ---
 
